@@ -1,17 +1,28 @@
 // with callback
 
-function getdata(data,getNextData){
-     setTimeout(()=>{
-         console.log(`data ${data}`);
-         if(getNextData){
-              getNextData();
-         }
-         
-     },32000);
+function getData(data, getNextData, errorCallback) {
+  setTimeout(() => {
+    console.log(`data ${data}`);
+    if (data === 2) {
+      errorCallback("Error: Data 2 cannot be processed.");
+    } else {
+      if (getNextData) {
+        getNextData();
+      }
+    }
+  }, 3000);
 }
-console.log("with callback");
-getdata(1,()=>{
-  getdata(2,()=>{
-    getdata(3);
-  })
-})
+
+console.log("Callback Example:");
+
+getData(1, () => {
+  getData(2, () => {
+    getData(3, null, (error) => {
+      console.error("Error occurred:", error);
+    });
+  }, (error) => {
+    console.error("Error occurred:", error);
+  });
+}, (error) => {
+  console.error("Error occurred:", error);
+});
