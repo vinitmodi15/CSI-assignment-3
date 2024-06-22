@@ -7,8 +7,9 @@ function getdata(data,getNextData){
               getNextData();
          }
          
-     },2000);
+     },32000);
 }
+console.log("with callback");
 getdata(1,()=>{
   getdata(2,()=>{
     getdata(3);
@@ -26,9 +27,10 @@ function getData(data,getNextData){
          if(getNextData){
           getNextData();
          }
-    },2000)
+    },3000)
   })
 }
+console.log("promise");
 getData(1)
   .then((res)=>{
   console.log(res);
@@ -44,10 +46,11 @@ function getData(data){
   return new Promise((resolve,reject)=>{
     setTimeout(()=>{
       console.log(`data ${data}`);
-    },2000)
+    },4000)
   })
 }
 async function asyncfunction(){
+  console.log("with async await");
   await getData(1);
   await getData(2);
 }
